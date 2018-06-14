@@ -1,4 +1,4 @@
-
+import ply.lex as lex
 
 # tokens
 tokens = [
@@ -29,7 +29,8 @@ tokens = [
 ]
 
 reserved = {
-    'abstract': 'ABSTRACT',
+    '__halt_compiler':"__HALT_COMPILER",
+    'abstract': "ABSTRACT",
     'and': "AND",
 	'array': "ARRAY",
 	'as': "AS",
@@ -98,4 +99,56 @@ reserved = {
 def t_ID(t):
     r'[a-zA-Z]*'
     t.type = reserved.get(t.value, 'ID')
+    return t
+
+def t___HALT_COMPILER(t):
+    r'__halt_compiler'
+    return t
+
+def t_ABSTRACT(t):
+    r'abstract'
+    return t
+
+def t_AND(t):
+    r'and|AND|\&\&'
+    return t
+
+def t_ARRAY(t):
+    r'array'
+    return t
+
+def t_AS(t):
+    r'as'
+    return t
+
+def t_BREAK(t):
+    r'break'
+    return t
+
+def t_CALLABLE(t):
+    r'callable'
+    return t
+
+def t_CASE(t):
+    r'case'
+    return t
+
+def t_CATCH(t):
+    r'catch'
+    return t
+
+def t_CLASS(t):
+    r'class'
+    return t
+
+def t_CLONE(t):
+    r'clone'
+    return t
+
+def t_CONST(t):
+    r'const'
+    return t
+
+def t_CONTINUE(t):
+    r'continue'
     return t
