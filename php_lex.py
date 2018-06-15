@@ -24,7 +24,6 @@ tokens = [
     'INCREMENTO',
     'DECREMENTO',
     'NOT',
-    'ID',
     'PARENTESIS_DER',
     'PARENTESIS_IZQ',
     'LLAVE_DER',
@@ -115,12 +114,6 @@ t_ignore  = r' \t'
 t_NOMBRE = r'\$[a-z]\w*'
 
 
-def t_ID(t):
-	r'[a-zA-Z_][a-zA-Z_0-9]*'
-	t.type = reserved.get(t.value, 'ID')
-	return t
-
-
 def t_NUMERO(t):
 	r'\d+'
 	t.value = int(t.value)    
@@ -132,16 +125,25 @@ def t_newline(t):
     t.lexer.lineno += len(t.value)
 
 
-# Error handling rule
 def t_error(t):
     print("Caracter incorrecto '%s'" % t.value[0])
     t.lexer.skip(1)
+
+def t_ID(t):
+	r'[a-zA-Z_][a-zA-Z0-9_]*'
+	if t.value in reserved:
+		t.type = reserved[t.value]
+	return t
+
+
+# Error handling rule
+
 
 
 lexer = lex.lex()
 data = """
 	while ($i <= 10) {
-    echo $i++;  
+    echo $i++;
 }
 """
 
