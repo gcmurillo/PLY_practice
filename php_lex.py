@@ -1,64 +1,46 @@
 import ply.lex as lex
 
 # tokens
-tokens = [
+tokens = [ 
     'ESPACIO',
     'COMILLA_DOBLE',
+    'MULTIPLICACION',
     'SUMA',
     'RESTA',
     'DIVISION',
     'IGUAL',
-    'VECES',
+    'ASIGNACION',
     'MAYOR_QUE',
     'MENOR_QUE',
     'MENOR_IGUAL_QUE',
     'MAYOR_IGUAL_QUE',
-    'PARENTESI_ABIERTO',
-    'PARENTESI_CERRADO',
-    'LLAVE_ABIERTA',
-    'LLAVE CERRADA',
-    'CORCHETE_ABIERTO',
-    'CORCHETE CERRADO',
+    'OP_AND',
+    'OP_OR',
+    'IDENTICO',
+    'DIFERENTE',
+    'DIFERENT',
+    'NO_IDENTICO',
+    'NAVE_ESPACIAL',
+    'FUSION_NULL',
+    'INCREMENTO',
+    'DECREMENTO',
     'NOT',
-    'ID'
+    'ID',
+    'PARENTESIS_DER',
+    'PARENTESIS_IZQ',
+    'LLAVE_DER',
+    'LLAVE_IZQ',
+    'COMENTARIO',
+    'CORCHETE_DER',
+    'CORCHETE_IZQ',
+    'NUMERO',
+    'PUNTO_COMA',
+    'DOS_PUNTOS',
+    'PUNTO'
 ]
 
-
-t_SUMA = r'\+'
-t_RESTA = r'-'
-t_VECES = r'\*'
-t_DIVISION  = r'/'
-t_IGUAL = r'='
-t_DIFERENTE = r'!'
-t_MENOR_QUE = r'<'
-t_MAYOR_QUE = r'>'
-t_COMILLA_DOBLE = r'\"'
-t_PARENTESI_ABIERTO = r'\('
-t_PARENTESI_CERRADO = r'\)'
-t_CORCHETE_ABIERTO  = r'\['
-t_CORCHETE_CERRADO = r'\]'
-t_LLAVE_CERRADA = r'{'
-t_LLAVE_ABIERTA = r'}'
-
-
-
-
-
-
-
-def t_MENOR_IGUAL_QUE(t):
-    r'<='
-    return t
-
-def t_MAYOR_IGUAL_QUE(t):
-    r'>='
-    return t
-
-
-
 reserved = {
-    '__halt_compiler':"__HALT_COMPILER",
-    'abstract': "ABSTRACT",
+    'abstract': 'ABSTRACT',
     'and': "AND",
 	'array': "ARRAY",
 	'as': "AS",
@@ -124,14 +106,46 @@ reserved = {
 	'xor' : "XOR"
 }
 
-
-
-
-
-
-def t_ID(t):
-    r'[a-zA-Z]*'
-    t.type = reserved.get(t.value, 'ID')
-    return t
-
-
+def Milexer():
+	
+	t_SUMA    = r'\+'
+	t_RESTA   = r'-'
+	t_DIVISION  = r'/'
+	t_MULTIPLICACION = r'\*'
+	t_PARENTESIS_IZQ  = r'\('
+	t_PARENTESIS_DER  = r'\)'
+	t_LLAVE_DER = r'\}'
+    t_LLAVE_IZQ = r'\{'
+    t_COMENTARIO = r'\\\\'
+    t_CORCHETE_DER = r'\]'
+    t_CORCHETE_IZQ = r'\['
+    t_ASIGNACION = r'='
+    t_COMILLA_DOBLE = r'"'
+    t_MAYOR_QUE = r'>'
+    t_MENOR_QUE = r'<'
+    t_MENOR_IGUAL_QUE = r'<='
+    t_MAYOR_IGUAL_QUE = r'>='
+    t_OP_AND = r'&&'
+    t_OP_OR = r'\|\|'
+    t_IGUAL = r'=='
+    t_IDENTICO = r'==='
+    t_DIFERENTE = r'!='
+    t_DIFERENT = r'<>'
+    t_NO_IDENTICO = r'!=='
+    t_NAVE_ESPACIAL = r'<=>'
+    t_FUSION_NULL = r'\?\?'
+    t_INCREMENTO = r'\+\+'
+    t_DECREMENTO = r'--'
+    t_NOT = r'!'
+    t_PUNTO_COMA = r';'
+    t_DOS_PUNTOS = r':'
+    t_PUNTO = r'\.'
+    t_ignore  = ' \t'
+	def t_ID(t):
+	    r'^\$[a-zA-Z]*'
+	    t.type = reserved.get(t.value, 'ID')
+	    return t
+	def t_NUMERO(t):
+		r'\d+'
+		t.value = int(t.value)    
+    	return t
