@@ -35,7 +35,8 @@ tokens = [
     'NUMERO',
     'PUNTO_COMA',
     'DOS_PUNTOS',
-    'PUNTO'
+    'PUNTO',
+	'NOMBRE'
 ]
 
 reserved = {
@@ -48,15 +49,17 @@ reserved = {
 	'continue' : "CONTINUE", 
 	'default' : "DEFAULT",
 	'do' : "DO", 
+	'if' : "IF",
 	'echo' : "ECHO", 
 	'else' : "ELSE", 
 	'elseif' : "ELSEIF", 
 	'empty' : "EMPTY", 
 	'enddeclare' : "ENDDECLARE", 
 	'endfor' : "ENDFOR", 
-	'endforeach' : "ENDFOREACH", 
+	'endforeach' : "ENDFOREACH",
 	'endif' : "ENDIF", 
 	'endswitch' : "ENDSWITCH", 
+	'while' : "WHILE",
 	'endwhile' : "ENDWHILE",
 	'exit' : "EXIT",  
 	'final' : "FINAL", 
@@ -64,17 +67,16 @@ reserved = {
 	'foreach' : "FOREACH",  
 	'global' : "GLOBAL", 
 	'goto' : "GOTO", 
-	'if' : "IF",
 	'new' : "NEW",
 	'or' : "OR",
 	'print' : "PRINT",
 	'return' : "RETURN",
 	'switch' : "SWITCH",
 	'try' : "TRY",
-	'while' : "WHILE", 
 	'xor' : "XOR"
 }
 
+tokens = tokens + list(reserved.values())
 
 # Regular expression rules for simple tokens
 t_SUMA    = r'\+'
@@ -109,11 +111,12 @@ t_NOT = r'!'
 t_PUNTO_COMA = r';'
 t_DOS_PUNTOS = r':'
 t_PUNTO = r'\.'
-t_ignore  = ' \t'
+t_ignore  = r' \t'
+t_NOMBRE = r'\$[a-z]\w*'
 
 
 def t_ID(t):
-	r'^\$[a-zA-Z]*'
+	r'[a-zA-Z_][a-zA-Z_0-9]*'
 	t.type = reserved.get(t.value, 'ID')
 	return t
 
@@ -133,3 +136,19 @@ def t_newline(t):
 def t_error(t):
     print("Caracter incorrecto '%s'" % t.value[0])
     t.lexer.skip(1)
+
+
+lexer = lex.lex()
+data = """
+	while ($i <= 10) {
+    echo $i++;  
+}
+"""
+
+lexer.input(data)
+
+while True:
+	tok = lexer.token()
+	if not tok:
+		break
+	print(tok)
