@@ -4,29 +4,57 @@ import ply.lex as lex
 tokens = [
     'ESPACIO',
     'COMILLA_DOBLE',
-    'MULTIPLICACION',
     'SUMA',
     'RESTA',
     'DIVISION',
     'IGUAL',
+    'VECES',
     'MAYOR_QUE',
     'MENOR_QUE',
     'MENOR_IGUAL_QUE',
     'MAYOR_IGUAL_QUE',
-    'OP_AND',
-    'OP_OR',
-    'IGUAL',
-    'IDENTICO',
-    'DIFERENTE',
-    'DIFERENT',
-    'NO_IDENTICO',
-    'NAVE_ESPACIAL',
-    'FUSION_NULL',
-    'INCREMENTO',
-    'DECREMENTO',
+    'PARENTESI_ABIERTO',
+    'PARENTESI_CERRADO',
+    'LLAVE_ABIERTA',
+    'LLAVE CERRADA',
+    'CORCHETE_ABIERTO',
+    'CORCHETE CERRADO',
     'NOT',
     'ID'
 ]
+
+
+t_SUMA = r'\+'
+t_RESTA = r'-'
+t_VECES = r'\*'
+t_DIVISION  = r'/'
+t_IGUAL = r'='
+t_DIFERENTE = r'!'
+t_MENOR_QUE = r'<'
+t_MAYOR_QUE = r'>'
+t_COMILLA_DOBLE = r'\"'
+t_PARENTESI_ABIERTO = r'\('
+t_PARENTESI_CERRADO = r'\)'
+t_CORCHETE_ABIERTO  = r'\['
+t_CORCHETE_CERRADO = r'\]'
+t_LLAVE_CERRADA = r'{'
+t_LLAVE_ABIERTA = r'}'
+
+
+
+
+
+
+
+def t_MENOR_IGUAL_QUE(t):
+    r'<='
+    return t
+
+def t_MAYOR_IGUAL_QUE(t):
+    r'>='
+    return t
+
+
 
 reserved = {
     '__halt_compiler':"__HALT_COMPILER",
@@ -96,59 +124,14 @@ reserved = {
 	'xor' : "XOR"
 }
 
+
+
+
+
+
 def t_ID(t):
     r'[a-zA-Z]*'
     t.type = reserved.get(t.value, 'ID')
     return t
 
-def t___HALT_COMPILER(t):
-    r'__halt_compiler'
-    return t
 
-def t_ABSTRACT(t):
-    r'abstract'
-    return t
-
-def t_AND(t):
-    r'and|AND|\&\&'
-    return t
-
-def t_ARRAY(t):
-    r'array'
-    return t
-
-def t_AS(t):
-    r'as'
-    return t
-
-def t_BREAK(t):
-    r'break'
-    return t
-
-def t_CALLABLE(t):
-    r'callable'
-    return t
-
-def t_CASE(t):
-    r'case'
-    return t
-
-def t_CATCH(t):
-    r'catch'
-    return t
-
-def t_CLASS(t):
-    r'class'
-    return t
-
-def t_CLONE(t):
-    r'clone'
-    return t
-
-def t_CONST(t):
-    r'const'
-    return t
-
-def t_CONTINUE(t):
-    r'continue'
-    return t
