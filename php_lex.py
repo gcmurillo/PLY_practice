@@ -2,7 +2,6 @@ import ply.lex as lex
 
 # tokens
 tokens = [ 
-    'ESPACIO',
     'COMILLA_DOBLE',
     'MULTIPLICACION',
     'SUMA',
@@ -114,12 +113,23 @@ t_ignore  = ' \t'
 
 
 def t_ID(t):
-	    r'^\$[a-zA-Z]*'
-	    t.type = reserved.get(t.value, 'ID')
-	    return t
+	r'^\$[a-zA-Z]*'
+	t.type = reserved.get(t.value, 'ID')
+	return t
 
 
 def t_NUMERO(t):
-		r'\d+'
-		t.value = int(t.value)    
-    	return t
+	r'\d+'
+	t.value = int(t.value)    
+	return t
+
+
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
+
+# Error handling rule
+def t_error(t):
+    print("Caracter incorrecto '%s'" % t.value[0])
+    t.lexer.skip(1)
