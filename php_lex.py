@@ -110,7 +110,7 @@ t_NOT = r'!'
 t_PUNTO_COMA = r';'
 t_DOS_PUNTOS = r':'
 t_PUNTO = r'\.'
-t_ignore  = r' \t'
+t_ignore  = r' '
 t_NOMBRE = r'\$[a-z]\w*'
 
 
@@ -135,12 +135,10 @@ def t_ID(t):
 		t.type = reserved[t.value]
 	return t
 
-
 # Error handling rule
 
-
-
 lexer = lex.lex()
+'''
 data = """
 	while ($i <= 10) {
     echo $i++;
@@ -154,3 +152,4 @@ while True:
 	if not tok:
 		break
 	print(tok)
+'''
