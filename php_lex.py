@@ -138,24 +138,17 @@ def t_error(t):
 	if t.value in reserved:
 		t.type = reserved[t.value]
 	return t
-<<<<<<< HEAD
-=======
 '''
->>>>>>> 6571146c6ba0ebaae6c43aa330bd41b445b03443
 
 # Error handling rule
 
 lexer = lex.lex()
-<<<<<<< HEAD
 '''
 data = """
 	while ($i <= 10) {
     echo $i++;
 }
 """
-=======
-data = input("ingresar una expresion de php")
->>>>>>> 6571146c6ba0ebaae6c43aa330bd41b445b03443
 
 lexer.input(data)
 
