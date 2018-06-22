@@ -32,6 +32,7 @@ tokens = [
     'CORCHETE_DER',
     'CORCHETE_IZQ',
     'NUMERO',
+    'COMA',
     'PUNTO_COMA',
     'DOS_PUNTOS',
     'PUNTO',
@@ -66,6 +67,7 @@ reserved = {
 	'foreach' : "FOREACH",  
 	'global' : "GLOBAL", 
 	'goto' : "GOTO", 
+	'list':"LIST",
 	'new' : "NEW",
 	'or' : "OR",
 	'print' : "PRINT",
@@ -110,8 +112,9 @@ t_NOT = r'!'
 t_PUNTO_COMA = r';'
 t_DOS_PUNTOS = r':'
 t_PUNTO = r'\.'
-t_ignore  = r' \t'
+t_ignore  = " \t"
 t_NOMBRE = r'\$[a-z]\w*'
+t_COMA = r','
 
 
 def t_NUMERO(t):
@@ -129,23 +132,19 @@ def t_error(t):
     print("Caracter incorrecto '%s'" % t.value[0])
     t.lexer.skip(1)
 
-def t_ID(t):
+'''def t_ID(t):
 	r'[a-zA-Z_][a-zA-Z0-9_]*'
 	if t.value in reserved:
 		t.type = reserved[t.value]
 	return t
-
+'''
 
 # Error handling rule
 
 
 
 lexer = lex.lex()
-data = """
-	while ($i <= 10) {
-    echo $i++;
-}
-"""
+data = input("ingresar una expresion de php")
 
 lexer.input(data)
 
