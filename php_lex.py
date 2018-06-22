@@ -7,7 +7,8 @@ tokens = [
     'SUMA',
     'RESTA',
     'DIVISION',
-    'IGUAL',
+    'IDENTICO',
+	'IGUAL',
     'ASIGNACION',
     'MAYOR_QUE',
     'MENOR_QUE',
@@ -15,7 +16,6 @@ tokens = [
     'MAYOR_IGUAL_QUE',
     'OP_AND',
     'OP_OR',
-    'IDENTICO',
     'DIFERENTE',
     'DIFERENT',
     'NO_IDENTICO',
@@ -72,7 +72,8 @@ reserved = {
 	'return' : "RETURN",
 	'switch' : "SWITCH",
 	'try' : "TRY",
-	'xor' : "XOR"
+	'xor' : "XOR",
+	'list': 'LIST'
 }
 
 tokens = tokens + list(reserved.values())
